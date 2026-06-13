@@ -1,3 +1,7 @@
+import nltk
+nltk.download('punkt')
+nltk.download('stopwords')
+nltk.download('punkt_tab')
 from flask import Flask, request, jsonify, render_template
 from matcher import FAQMatcher
 
@@ -24,5 +28,6 @@ def ask():
     result = matcher.get_answer(user_input)
     return jsonify({ "answer": result })
 
+import os
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)), debug=False)
